@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import List from './components/List';
+import NewTask from './components/NewTask';
+import Todo from './components/Todo';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      tasks: ["cleaning", "shopping"],
+      task: ''
+    }
   }
-}
 
-export default App;
+  
+  handleClick = () => {
+    let tasksCopy = this.state.tasks
+    tasksCopy.push(this.state.task)
+    this.setState({tasks: tasksCopy})
+  }
+  
+    render() {
+      return (
+        <div className="App">
+        <NewTask submit={this.handleClick}/>
+          <Todo tasks={this.state.tasks}/>
+        </div>
+      );
+    }
+  }
+  
+  export default App;
